@@ -1,0 +1,807 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Adams_Fixed_Step" />
+		<Option pch_mode="2" />
+		<Option compiler="ifcwin" />
+		<MakeCommands>
+			<Build command="" />
+			<CompileFile command="" />
+			<Clean command="" />
+			<DistClean command="" />
+			<AskRebuildNeeded command="" />
+			<SilentBuild command=" &gt; $(CMD_NULL)" />
+		</MakeCommands>
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Adams_Fixed_Step" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="ifcwin" />
+				<Compiler>
+					<Add option="-r8" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Adams_Fixed_Step" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="ifcwin" />
+				<Compiler>
+					<Add option="-r8" />
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="/4R16" />
+		</Compiler>
+		<Unit filename="Adams_Fixed_Step.f90">
+			<Option weight="3" />
+		</Unit>
+		<Unit filename="a2af.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="a2tf.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ab.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ae2hd.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="af2a.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="anp.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="anpm.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="apcg.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="apcg13.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="apci.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="apci13.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="apco.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="apco13.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="apcs.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="apcs13.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="aper.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="aper13.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="apio.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="apio13.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="atci13.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="atciq.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="atciqn.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="atciqz.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="atco13.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="atic13.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="aticq.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="aticqn.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="atio13.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="atioq.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="atoc13.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="atoi13.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="atoiq.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="bi00.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="bp00.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="bp06.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="bpn2xy.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="c2i00a.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="c2i00b.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="c2i06a.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="c2ibpn.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="c2ixy.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="c2ixys.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="c2s.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="c2t00a.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="c2t00b.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="c2t06a.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="c2tceo.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="c2tcio.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="c2teqx.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="c2tpe.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="c2txy.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="cal2jd.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="chd_ITRSandGCRS_P.f90">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="chd_interplotation.f90">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="cp.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="cpv.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="cr.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="d2dtf.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="d2tf.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="dat.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ddeabm_kinds.f90">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ddeabm_kinds.mod" />
+		<Unit filename="ddeabm_module.f90">
+			<Option weight="2" />
+		</Unit>
+		<Unit filename="ddeabm_module.mod" />
+		<Unit filename="dtdb.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="dtf2d.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="eceq06.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ecm06.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ee00.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ee00a.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ee00b.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ee06a.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="eect00.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="eform.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="eo06a.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="eors.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="epb.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="epb2jd.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="epj.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="epj2jd.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="epv00.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="eqec06.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="eqeq94.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="era00.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="fad03.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="fae03.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="faf03.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="faju03.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="fal03.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="falp03.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="fama03.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="fame03.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="fane03.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="faom03.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="fapa03.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="fasa03.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="faur03.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="fave03.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="fk425.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="fk45z.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="fk524.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="fk52h.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="fk54z.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="fk5hip.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="fk5hz.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="fw2m.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="fw2xy.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="g2icrs.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="gc2gd.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="gc2gde.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="gd2gc.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="gd2gce.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="gmst00.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="gmst06.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="gmst82.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="gst00a.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="gst00b.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="gst06.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="gst06a.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="gst94.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="h2fk5.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="hd2ae.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="hd2pa.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="hfk5z.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="icrs2g.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ir.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="jd2cal.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="jdcalf.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ld.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ldn.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ldsun.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="lteceq.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ltecm.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="lteqec.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ltp.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ltpb.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ltpecl.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ltpequ.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="num00a.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="num00b.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="num06a.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="numat.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="nut00a.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="nut00b.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="nut06a.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="nut80.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="nutm80.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="obl06.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="obl80.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="p06e.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="p2pv.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="p2s.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pap.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pas.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pb06.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pdp.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pfw06.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="plan94.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pm.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pmat00.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pmat06.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pmat76.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pmp.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pmpx.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pmsafe.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pn.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pn00.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pn00a.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pn00b.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pn06.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pn06a.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pnm00a.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pnm00b.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pnm06a.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pnm80.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pom00.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ppp.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ppsp.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pr00.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="prec76.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pv2p.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pv2s.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pvdpv.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pvm.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pvmpv.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pvppv.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pvstar.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pvtob.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pvu.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pvup.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pvxpv.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="pxp.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="refco.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="rm2v.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="root_module.f90">
+			<Option weight="1" />
+		</Unit>
+		<Unit filename="root_module.mod" />
+		<Unit filename="rv2m.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="rx.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="rxp.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="rxpv.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="rxr.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ry.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="rz.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="s00.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="s00a.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="s00b.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="s06.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="s06a.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="s2c.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="s2p.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="s2pv.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="s2xpv.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="sepp.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="seps.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="sp00.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="starpm.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="starpv.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="sxp.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="sxpv.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="taitt.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="taiut1.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="taiutc.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="tcbtdb.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="tcgtt.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="tdbtcb.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="tdbtt.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="tf2a.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="tf2d.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="tpors.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="tporv.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="tpsts.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="tpstv.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="tpxes.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="tpxev.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="tr.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="trxp.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="trxpv.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="tttai.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="tttcg.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="tttdb.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ttut1.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ut1tai.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ut1tt.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="ut1utc.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="utctai.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="utcut1.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="xy06.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="xys00a.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="xys00b.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="xys06a.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="zp.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="zpv.for">
+			<Option weight="0" />
+		</Unit>
+		<Unit filename="zr.for">
+			<Option weight="0" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<fortran_project />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

@@ -1,0 +1,39 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module grav_v ! in 
+    interface  ! in :grav_v
+        subroutine process(c,s,degree,x,y,z,n1,n2,v) ! in :grav_v:grav_v.f90
+            real(kind=8) dimension(degree + 1,degree + 1),intent(in) :: c
+            real(kind=8) dimension(degree + 1,degree + 1),intent(in),depend(degree,degree) :: s
+            integer(kind=4), optional,intent(in),check((shape(c,0)-1)==degree),depend(c) :: degree=(shape(c,0)-1)
+            real(kind=8) intent(in) :: x
+            real(kind=8) intent(in) :: y
+            real(kind=8) intent(in) :: z
+            integer(kind=4) intent(in) :: n1
+            integer(kind=4) intent(in) :: n2
+            real(kind=8) intent(out) :: v
+        end subroutine process
+        subroutine calculateef(x,y,z,n,e,f) ! in :grav_v:grav_v.f90
+            real(kind=8) intent(in) :: x
+            real(kind=8) intent(in) :: y
+            real(kind=8) intent(in) :: z
+            integer(kind=4) intent(in) :: n
+            real(kind=8) dimension(n + 1,n + 1),intent(out),depend(n,n) :: e
+            real(kind=8) dimension(n + 1,n + 1),intent(out),depend(n,n) :: f
+        end subroutine calculateef
+        subroutine calculatev(e,f,degree,n1,n2,v,c,s) ! in :grav_v:grav_v.f90
+            real(kind=8) dimension(degree + 1,degree + 1),intent(in) :: e
+            real(kind=8) dimension(degree + 1,degree + 1),intent(in),depend(degree,degree) :: f
+            integer(kind=4), optional,intent(in),check((shape(e,0)-1)==degree),depend(e) :: degree=(shape(e,0)-1)
+            integer(kind=4) intent(in) :: n1
+            integer(kind=4) intent(in) :: n2
+            real(kind=8) intent(out) :: v
+            real(kind=8) dimension(degree + 1,degree + 1),intent(in),depend(degree,degree) :: c
+            real(kind=8) dimension(degree + 1,degree + 1),intent(in),depend(degree,degree) :: s
+        end subroutine calculatev
+    end interface 
+end python module grav_v
+
+! This file was auto-generated with f2py (version:2).
+! See http://cens.ioc.ee/projects/f2py2e/
