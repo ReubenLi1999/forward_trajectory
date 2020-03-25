@@ -7,11 +7,11 @@
 !  Programme to calculate the velocities and positions integrated by Adams-Method utilizing EGM2008.
 !  txt for spherical harmonies with a given vector consisted of velocity and poistion.
 !
-!  In this programme, the initial date is 2020.01.01, so its corresponding julian day is 2458849.5,
+!  In this programme, the initial date is 2019.03.01, so its corresponding julian day is 2458543.5,
 !  and the residual part can be determined by using seconds divided by 86400. Obviously, once the se
 !  cond becomes larger than 86399, the next day, 2020.01.02, is coming.
 !
-!  According to the reference from IERS, the leapsecond for the whole month of 2020.01 is 37.
+!  According to the reference from IERS, the leapsecond for the whole month of 2019.03 is 37.
 !
 !
 !  Date          Version    Programmer    Description
