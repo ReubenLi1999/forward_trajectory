@@ -40,21 +40,22 @@ program ddeabm_fixed_step_test
     type, extends(ddeabm_with_event_class) :: spacecraft
         !! spacecraft propagation type.
         !! extends the [[ddeabm_class]] to include data used in the deriv routine
-        real(wp)           :: mu     = 0.0_wp    !! central body gravitational parameter (m3/s2)
-        integer(kind = 4)  :: fevals = 0         !! number of function evaluations
+        real(wp)           :: mu     = 0.0_wp       !! central body gravitational parameter (m3/s2)
+        integer(kind = 4)  :: fevals = 0            !! number of function evaluations
         integer(kind = 4)  :: degree = 10
-        logical            :: first  = .true.    !! first point is being exported
+        logical            :: first  = .true.       !! first point is being exported
         logical            :: w_time = .true.
-        double precision   :: date   = 2458543.5 !! MJD of 2019.03.01
+        double precision   :: date   = 2458543.5_wp !! MJD of 2019.03.01
+        real(wp)           :: t0, tf
+        real(wp)           :: dt     = 10.0_wp    !! output step size (sec)
     end type spacecraft
 
     integer,  parameter    :: n      = 6          !! number of state variables
     real(wp), parameter    :: tol    = 1.0e-14_wp !! event location tolerance
-    real(wp), parameter    :: dt     = 10.0_wp    !! output step size (sec)
 
     type(spacecraft)       :: s
     real(wp), dimension(n) :: x0, xf, x, x02
-    real(wp)               :: t0, tf, t, z_target
+    real(wp)               :: t, z_target
     real(wp)               :: time_begin, time_end
     integer                :: idid
     integer(kind = 8)      :: file_unit
@@ -100,18 +101,18 @@ program ddeabm_fixed_step_test
         -665.4527846303586_wp, -403.3112362290047_wp, 7578.348511165726_wp   &
     ]                    !initial state [r, v] (m, m/s)
 
-    t0 = 51.18_wp                   ! initial time (sec)
-    tf = 86400.0_wp - dt + t0     ! final time   (sec)
+    s%t0 = 51.18_wp                   ! initial time (sec)
+    s%tf = 86400.0_wp - s%dt + s%t0     ! final time   (sec)
     s%fevals = 0
 
-    write(file_unit, '(A/, *(F15.6/))') 'Initial time: ', t0
+    write(file_unit, '(A/, *(F15.6/))') 'Initial time: ', s%t0
     write(file_unit, '(A/, *(F15.6/))') 'Initial state: ', x0
     s%fevals = 0
     s%first  = .true.
-    t = t0
+    t = s%t0
     x = x0
     call s%first_call()
-    call s%integrate(t, x, tf, idid=idid, integration_mode=2, tstep=dt) !forward (report points)
+    call s%integrate(t, x, s%tf, idid=idid, integration_mode=2, tstep=s%dt) !forward (report points)
     xf = x
     write(file_unit, *) ''
     write(file_unit, '(A/, *(I5/))')    'idid: ', idid
@@ -158,14 +159,24 @@ program ddeabm_fixed_step_test
             real(wp)           , intent(in   )      :: x(:)
             real(wp)           , intent(  out)      :: xdot(:)
 
-            real(wp), dimension(3)                  :: r_inertial, v
+            real(wp)                                :: r_inertial(3)
+            real(wp)                                :: v_inertial(3)
+            real(wp)                                :: acc_rela_inertial(3)
+            real(wp)                                :: acc_thre_inertial(3)
+            real(wp)                                :: gm_other(10)
+            real(wp), allocatable                   :: cb09(:, :)
+            real(wp), allocatable                   :: cb10(:, :)
 
             double precision                        :: r_earth(3) = 0
             double precision                        :: residual_date
-            double precision                        :: acc_earth(3)
-            double precision                        :: acc_inertial(3)
+            double precision                        :: acc_grav_earth(3)
+            double precision                        :: acc_grav_inertial(3)
+
+            integer(kind = 4)                       :: record_num
+
 
             residual_date = t / 86400.0
+    
 
             ! r_earth = [&
             !     5020587.207190956_wp, 4641854.900745415_wp, -699879.8082799137_wp &
@@ -178,8 +189,25 @@ program ddeabm_fixed_step_test
             select type (me)
             class is (spacecraft)
 
+                record_num = int((me%tf - me%t0) / me%dt + 1)
+                allocate(cb09(record_num, 4), cb10(record_num, 4))
+
                 r_inertial = x(1: 3)
-                v = x(4: 6)
+                v_inertial = x(4: 6)
+
+                ! in icrf aka inertial system, calculate the effect of three-body (sun and moon)
+                ! and the effect of the relativistic effect
+
+                call RelativisticEffect(v_inertial, r_inertial, acc_rela_inertial)
+
+                call readGM(gm_other)
+                call readCB(record_num, cb09, cb10)
+                call calculate_three_body(&
+                    r_inertial, acc_thre_inertial, (t - me%t0) / 10.0 + 1.0, &
+                    cb09, cb10, gm_other, record_num &
+                )
+
+                deallocate(cb09, cb10)
 
                 ! description about flag
                 ! 2 => earth-fixed-system to inertial system
@@ -191,16 +219,16 @@ program ddeabm_fixed_step_test
                 end if
 
                 ! calculate the gravitional accelaration in the earth-fixed system
-                call accxyz(r_earth, acc_earth, me%degree)
+                call accxyz(r_earth, acc_grav_earth, me%degree)
 
                 if (me%w_time) then
-                    call ITRSandGCRS_P(2, me%date, residual_date, 37, acc_earth, acc_inertial)
+                    call ITRSandGCRS_P(2, me%date, residual_date, 37, acc_grav_earth, acc_grav_inertial)
                 else
-                    call rotation(t, acc_earth, acc_inertial, 2)
+                    call rotation(t, acc_grav_earth, acc_grav_inertial, 2)
                 end if
 
-                xdot(1: 3) = v
-                xdot(4: 6) = acc_inertial
+                xdot(1: 3) = v_inertial
+                xdot(4: 6) = acc_grav_inertial + acc_rela_inertial + acc_thre_inertial
 
                 me%fevals = me%fevals + 1
 
@@ -292,7 +320,6 @@ program ddeabm_fixed_step_test
                 call ReadCS(C, S, me%degree)
                 call process(C, S, me%degree + 1, x_earth, 0, me%degree, V)
                 write(file_unit_potential, *) v
-                write(*, *) v
 
                 close(file_unit)
                 close(file_unit_acc)
@@ -579,6 +606,189 @@ program ddeabm_fixed_step_test
         rz(3, 1) = 0.0_wp
         rz(3, 2) = 0.0_wp
         rz(3, 3) = 1.0_wp
+    end subroutine
+
+    subroutine A_09MOON(record1,GM,position,CB09,a09,number)
+
+        implicit none
+        integer record1,i
+        real(kind=8) GM(10),position(3),CB09(record1,4),a09(3)
+        real(wp) number
+        real(kind=8) Lx,Ly,Lz,Ld
+
+        Lx=position(1)*1.0e-3-CB09(number,1)
+        Ly=position(2)*1.0e-3-CB09(number,2)
+        Lz=position(3)*1.0e-3-CB09(number,3)
+        Ld=sqrt(Lx**2+Ly**2+Lz**2)
+
+        a09(1)=-GM(9)*(Lx/Ld**3+CB09(number,1)/CB09(number,4)**3)*1.0e-6
+        a09(2)=-GM(9)*(Ly/Ld**3+CB09(number,2)/CB09(number,4)**3)*1.0e-6
+        a09(3)=-GM(9)*(Lz/Ld**3+CB09(number,3)/CB09(number,4)**3)*1.0e-6
+
+    end subroutine
+
+    subroutine A_10SUN(record1,GM,position,CB10,a10,number)
+
+        implicit none
+        integer record1,i
+        real(kind=8) GM(10),position(3),CB10(record1,4),a10(3)
+        real(kind=8) Lx,Ly,Lz,Ld
+        real(wp) number
+
+        Lx=position(1)*1.0e-3-CB10(number,1)
+        Ly=position(2)*1.0e-3-CB10(number,2)
+        Lz=position(3)*1.0e-3-CB10(number,3)
+        Ld=sqrt(Lx**2+Ly**2+Lz**2)
+
+        a10(1)=-GM(10)*(Lx/Ld**3+CB10(number,1)/CB10(number,4)**3)*1.0e-6
+        a10(2)=-GM(10)*(Ly/Ld**3+CB10(number,2)/CB10(number,4)**3)*1.0e-6
+        a10(3)=-GM(10)*(Lz/Ld**3+CB10(number,3)/CB10(number,4)**3)*1.0e-6
+    
+    end subroutine
+
+    subroutine calculate_three_body(position,acc,number,cb09,cb10,GM, record1)
+        implicit none
+        real(kind=8) position(3),acc(3),acc09(3),acc10(3)
+        integer record1
+        real(wp) number
+        real(kind=8) cb09(record1,4),cb10(record1,4)
+        real(kind=8) GM(10)
+        
+        call A_09MOON(record1,GM,position,CB09,acc09,number)
+        call A_10SUN(record1,GM,position,CB10,acc10,number)
+        
+        acc=acc09+acc10
+    
+    end subroutine
+
+    subroutine readCB(record1, CB09, CB10)
+        implicit none
+        integer record1
+        real(kind=8) CB09(record1,4),CB10(record1,4)
+        
+        character(len = 80) CBfile
+        character(len = 80) str
+        integer i,j,m
+
+        CBfile = '20190301.txt'
+        
+        
+        open(30,file=CBfile,status='old')
+        
+        do i=1,record1
+            read(30,*)
+            read(30,*) CB09(i,1),CB09(i,2),CB09(i,3)                    
+            CB09(i,4)=sqrt(CB09(i,1)**2+CB09(i,2)**2+CB09(i,3)**2)
+            read(30,*)
+            read(30,*) CB10(i,1),CB10(i,2),CB10(i,3)
+            CB10(i,4)=sqrt(CB10(i,1)**2+CB10(i,2)**2+CB10(i,3)**2)
+        end do
+        close(30)
+    end subroutine
+
+    subroutine readGM(GM)
+        implicit none
+        
+        character(80) str
+        character(len = 80) GMfile
+        real(kind=8) GM(*)
+        real(kind=8) number1
+        integer j
+
+        GMfile = 'GM.dat'
+
+        open(50,file=GMfile,status='old')
+        read(50,*)
+        do j=1,10
+            read(50,*) str,number1,GM(j)
+        end do
+        close(50)
+    end subroutine
+
+    subroutine RelativisticEffect(Velocity, Coordinate, Acceleration)
+        implicit none
+        real(kind = 8), intent(in   )      :: Velocity(1:3)             
+        real(kind = 8), intent(in   )      :: Coordinate(1:3)           
+        real(kind = 8), intent(  out)      :: Acceleration(1:3)         
+
+        real(kind = 8)      :: REarth=6.371393E+6, Vlight=2.99792458E+8
+        real(kind = 8)      :: MU=0.3986004415E+15, JEarth = 9.8e+8
+
+        Acceleration = 0
+        call calculate1(Velocity, Coordinate, Acceleration, Vlight,REarth,MU)
+        call calculate2(Velocity, Coordinate, Acceleration, Vlight,REarth,MU)
+        call calculate3(Velocity,Coordinate,Acceleration,Vlight,REarth,MU,JEarth)
+
+    end subroutine RelativisticEffect
+
+
+    subroutine calculate2(Velocity,Coordinate,Acceleration,Vlight,REarth,MU)
+        implicit none
+        real(8) Velocity(1:3), Coordinate(1:3), Acceleration(1:3)
+        real(8) Vlight, REarth, MU
+
+
+        real(8) V,R,coe,coe1
+        integer i,j
+
+        V=0
+        R=0
+
+        do i=1,3
+            V=sqrt(V**2+Velocity(i)**2)
+            R=sqrt(R**2+Coordinate(i)**2)
+        end do
+
+
+        coe = 0
+        do i = 1, 3
+            coe = coe + Velocity(i) * Coordinate(i)
+        end do
+
+        coe1 = MU / ((R**3) * (Vlight**2))
+
+        do i = 1, 3
+            Acceleration(i) = Acceleration(i) - 4 * coe1 * coe * Velocity(i)
+        end do
+    end subroutine
+
+
+    subroutine calculate1(Velocity,Coordinate,Acceleration,Vlight,REarth,MU)
+        implicit none
+        real(8) Velocity(1:3),Coordinate(1:3),Acceleration(1:3)
+        real(8) Vlight, REarth, MU
+
+
+        integer i
+        real(8) coe, V, R
+
+
+        V = 0
+        R = 0
+        do i = 1, 3
+            V = sqrt(V**2 + Velocity(i)**2)
+            R = sqrt(R**2 + Coordinate(i)**2)
+        end do
+
+        coe = MU / ((R**3) * (Vlight**2))
+        do i = 1, 3
+            Acceleration(i) = Acceleration(i) - coe * Coordinate(i) * (4 * MU / R - V**2)
+        end do
+    end subroutine
+
+    subroutine calculate3(Velocity,Coordinate,Acceleration,Vlight,REarth,MU,JEarth)
+        implicit none
+        real(8) Velocity(1:3), Coordinate(1:3), Acceleration(1:3)
+        real(8) Vlight, REarth, MU
+        real(kind = 8) coe, R, JEarth
+        integer(kind = 4) i, j
+
+        R = 0
+        do i = 1, 3
+            R = sqrt(R**2 + Coordinate(i)**2)
+        end do
+
+        Acceleration = Acceleration + 2 * MU / (Vlight**2 * R**3) * (3 * Coordinate(3) * JEarth / R**2 + JEarth * (Velocity(2) - Velocity(1)))
     end subroutine
 
 
