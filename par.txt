@@ -1,4 +1,0 @@
-所用重力场模型：						EGM2008.txt
-模型阶数：								2
-反演阶数：								2
-输出文件名：							output/potential.txt
