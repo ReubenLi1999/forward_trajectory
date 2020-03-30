@@ -19,7 +19,7 @@ subroutine interplotation(UTCMJD,xp,yp,dx,dy,DUT1)
     double precision DAS2R
     PARAMETER (DAS2R=4.848136811095359935899141D-6)!将角秒化为弧度
     !定义目标文件
-    open(11,file='jiyi.dat')
+    open(11,file='input/jiyi.dat')
     ss=0
     do
         read(11,*, iostat=flag)

@@ -18,7 +18,6 @@ module accl_potl_module
     real(wp), allocatable                       :: cb10(:, :)
     
     type(sate_char)                             :: gl
-    type(sate_char)                             :: gt
 
 contains
     subroutine AccXyz(position, acc, degree)
@@ -336,7 +335,7 @@ contains
         
         open(30,file=CBfile,status='old')
         
-        do i=1,record1
+        do i=1, record1
             read(30,*)
             read(30,*) CB09(i,1),CB09(i,2),CB09(i,3)                    
             CB09(i,4)=sqrt(CB09(i,1)**2+CB09(i,2)**2+CB09(i,3)**2)

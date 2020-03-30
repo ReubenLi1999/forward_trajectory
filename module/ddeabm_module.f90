@@ -298,12 +298,12 @@ module ddeabm_module
 
     subroutine ddeabm_new_problem(me)
 
-    implicit none
+        implicit none
 
-    class(ddeabm_class), intent(inout) :: me
+        class(ddeabm_class), intent(inout) :: me
 
-    me%info(1) = 0
-    me%error = .false.
+        me%info(1) = 0
+        me%error = .false.
 
     end subroutine ddeabm_new_problem
 !*****************************************************************************************
